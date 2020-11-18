@@ -16,6 +16,21 @@ int main() {
 
     cout << "cantidad: " << enteros.size() << endl;
 
+    enteros.print();
+    cout << endl;
+    enteros.print_reverse();
+
+    int *front = enteros.front();
+
+    if (front) {
+        cout << "front: " << *front << endl;
+    }
+
+    int *back = enteros.back();
+    if (back) {
+        cout << "back: " << *back << endl;
+    }
+
 
     return 0;
 }

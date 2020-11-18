@@ -26,6 +26,12 @@ public:
         return *this;
     }
 
+    // recorridos
+    void print();
+    void print_reverse();
+    T* front();
+    T* back();
+
 private:
     struct Nodo {
         T dato;
@@ -94,5 +100,50 @@ size_t ListaDobleLigada<T>::size()
 {
     return cont;
 }
+
+template <class T>
+void ListaDobleLigada<T>::print()
+{
+    Nodo *temp = head;
+
+    while (temp != nullptr) 
+    {
+        cout << temp->dato << endl;
+        temp = temp->sig;
+    }    
+}
+
+template <class T>
+void ListaDobleLigada<T>::print_reverse()
+{
+    Nodo *temp = tail;
+
+    while (temp != nullptr)
+    {
+        cout << temp->dato << endl;
+        temp = temp->ant;
+    }    
+}
+
+template <class T>
+T* ListaDobleLigada<T>::front()
+{
+    if (empty()) {
+        return nullptr;
+    } else {
+        return &head->dato;
+    }
+}
+
+template <class T>
+T* ListaDobleLigada<T>::back()
+{
+    if (empty()) {
+        return nullptr;
+    } else {
+        return &tail->dato;
+    }
+}
+
 
 #endif
