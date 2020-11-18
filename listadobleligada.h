@@ -32,6 +32,10 @@ public:
     T* front();
     T* back();
 
+    // eliminar
+    void pop_front();
+    void pop_back();
+
 private:
     struct Nodo {
         T dato;
@@ -59,6 +63,11 @@ template <class T>
 ListaDobleLigada<T>::~ListaDobleLigada()
 {
     // eliminar todos los nodos
+    while (!empty())
+    {
+        pop_front();
+    }
+    
 }
 
 template <class T>
@@ -142,6 +151,47 @@ T* ListaDobleLigada<T>::back()
         return nullptr;
     } else {
         return &tail->dato;
+    }
+}
+
+template <class T>
+void ListaDobleLigada<T>::pop_front()
+{
+    if (empty()) {
+        cout << "Lista vacia" << endl;
+    } else if (cont == 1) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+        cont--;
+    } else {
+        Nodo *temp = head->sig;
+
+        head->sig->ant = nullptr;
+        delete head;
+        head = temp;
+
+        cont--;
+    }
+}
+
+template <class T>
+void ListaDobleLigada<T>::pop_back()
+{
+    if (empty()) {
+        cout << "Lista vacia" << endl;
+    } else if (cont == 1) {
+        delete tail;
+        head = nullptr;
+        tail = nullptr;
+        cont--;
+    } else {
+        Nodo *temp = tail->ant;
+        temp->sig = nullptr; // tail->ant->sig
+
+        delete tail;
+        tail = temp;
+        cont--;
     }
 }
 

@@ -31,6 +31,16 @@ int main() {
         cout << "back: " << *back << endl;
     }
 
+    enteros.pop_front();
+    cout << endl;
+    enteros.print();
+    cout << endl;
+    enteros.pop_back();
+    enteros.print();
+
+    enteros.~ListaDobleLigada();
+    cout << "cantidad: " << enteros.size() << endl;
+
 
     return 0;
 }
