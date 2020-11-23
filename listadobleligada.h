@@ -16,6 +16,7 @@ public:
     // insertar
     void push_front(const T &dato);
     void push_back(const T &dato);
+    void insert(const T &dato, size_t p);
 
     size_t size();
 
@@ -35,6 +36,25 @@ public:
     // eliminar
     void pop_front();
     void pop_back();
+    void erase(size_t p);
+
+    T* operator[](size_t p)
+    {
+        size_t pos = 0;
+        Nodo *temp = head;
+
+        while (temp != nullptr)
+        {
+            if (p == pos) {
+                return &temp->dato;
+            }
+            temp = temp->sig;
+            pos++;
+        }
+
+        return nullptr;        
+    }
+
 
 private:
     struct Nodo {
@@ -192,6 +212,69 @@ void ListaDobleLigada<T>::pop_back()
         delete tail;
         tail = temp;
         cont--;
+    }
+}
+
+template <class T>
+void ListaDobleLigada<T>::insert(const T &dato, size_t p)
+{
+    if (p >= cont) {
+        cout << "Posicion no validad" << endl;
+    } else if (p == 0) {
+        push_front(dato);
+    } else {
+        Nodo *temp = head->sig;
+        size_t pos = 1;
+
+        while (temp != nullptr)
+        {
+            if (p == pos) {
+                Nodo *nodo = new Nodo(dato);
+
+                nodo->sig = temp;
+                nodo->ant = temp->ant;
+
+                temp->ant->sig = nodo;
+                nodo->sig->ant = nodo;
+
+                cont++;
+
+                break;
+            }
+            temp = temp->sig;
+            pos++;
+        }        
+    }
+}
+
+template <class T>
+void ListaDobleLigada<T>::erase(size_t p)
+{
+    if (p >= cont) {
+        cout << "Posición no válida" << endl;
+    } else if (p == 0) {
+        pop_front();
+    } else if (p == cont -1) {
+        pop_back();
+    } else {
+        Nodo *temp = head->sig;
+        size_t pos = 1;
+
+        while (temp != nullptr)
+        {
+            if (p == pos) {
+                temp->ant->sig = temp->sig;
+                temp->sig->ant = temp->ant;
+
+                delete temp;
+                cont--;
+
+                break;
+            }
+            temp = temp->sig;
+            pos++;
+        }
+        
     }
 }
 
