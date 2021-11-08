@@ -37,6 +37,7 @@ public:
     void pop_front();
     void pop_back();
     void erase(size_t p);
+    void remove_if(const T& dato);
 
     T* operator[](size_t p)
     {
@@ -276,6 +277,41 @@ void ListaDobleLigada<T>::erase(size_t p)
         }
         
     }
+}
+
+template <class T>
+void ListaDobleLigada<T>::remove_if(const T& dato)
+{
+    Nodo* temp = head;
+
+    while (temp != nullptr)
+    {
+        if (temp->dato == dato) {
+            if (temp->ant == nullptr) {
+                pop_front();
+                temp = head;
+            }
+            else if (temp->sig == nullptr) {
+                pop_back();
+                break;
+            }
+            else {
+                Nodo* e = temp->sig;
+
+                temp->ant->sig = temp->sig;
+                temp->sig->ant = temp->ant;
+
+                delete temp;
+                cont--;
+
+                temp = e;
+            }
+        }
+        else {
+            temp = temp->sig;
+        }
+    }
+    
 }
 
 
